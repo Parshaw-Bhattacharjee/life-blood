@@ -23,17 +23,17 @@ const NavBar = () => {
       </div>
       <nav>
         <ul className='flex gap-8 p-4 bg-black/50 text-white rounded-3xl md:text-2xl'>
-          <li>
+          <li title='hospital'>
             <Link to={'/login/hospital'}>
               <FaHospitalAlt />
             </Link>
           </li>
-          <li>
+          <li title='blood bank'>
             <Link to={'/login/blood_bank'}>
               <RiBankFill />
             </Link>
           </li>
-          <li>
+          <li title='donor'>
             <Link to={'/login/donor'}>
               <AiOutlineUser />
             </Link>
