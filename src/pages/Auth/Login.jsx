@@ -1,68 +1,127 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 const Login = ({ user }) => {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   return (
-    <>
-      <div className="bg-blood-donation-image w-full h-screen bg-cover bg-center items-center flex px-4"></div>
-      <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Open small modal
-      </button>
-      {showModal ? (
-        <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-sm">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Login Page</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
+    <div className='mt-28 w-full min-h-screen flex  flex-col bg-white'>
+      <div className='w-full md:w-1/2 bg-white mt-10 px-12 self-center'>
+        <h2 className='text-center text-4xl text-red-600 font-display font-semibold'>
+          Sign in
+        </h2>
+        <div className='mt-12'>
+          <form>
+            <div className='flex flex-col'>
+              <div className='text-sm font-bold text-gray-700 tracking-wide'>
+                Email Address
+              </div>
+              <div className='border-b border-gray-300'>
+                <input
+                  className='w-full text-lg p-2 focus:outline-none'
+                  type='email'
+                  //   value={loginInput.email}
+                  onChange={(e) => {
+                    // setLoginInput({ ...loginInput, email: e.target.value });
+                    // if (!validateEmail(e.target.value)) {
+                    //   setLoginInputError({
+                    //     ...loginInputError,
+                    //     email: 'Email should be in correct format',
+                    //   });
+                    // } else {
+                    //   setLoginInputError({ ...loginInputError, email: '' });
+                    // }
+                  }}
+                  placeholder='mike@gmail.com'
+                  required
+                />
+              </div>
+              {/* {loginInputError.email ? (
+                <div className='text-red-500 font-semibold self-center text-sm'>
+                  {loginInputError.email}
                 </div>
-                {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p>
-                </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Save Changes
-                  </button>
+              ) : null} */}
+            </div>
+            <div className='mt-8 flex flex-col'>
+              <div className='flex justify-between items-center'>
+                <div className='text-sm font-bold text-gray-700 tracking-wide'>
+                  Password
                 </div>
               </div>
+              <div className='flex items-center border-b border-gray-300'>
+                <input
+                  //   value={loginInput.password}
+                  className='w-full text-lg p-2  focus:outline-none'
+                  type={showPassword ? 'text' : 'password'}
+                  onChange={(e) => {
+                    // setLoginInput({ ...loginInput, password: e.target.value });
+                    // if (e.target.value !== '') {
+                    //   setLoginInputError({
+                    //     ...loginInputError,
+                    //     password: '',
+                    //   });
+                    // }
+                  }}
+                  placeholder='Enter your password'
+                  required
+                />
+                {!showPassword ? (
+                  <i
+                    onClick={() => setShowPassword(true)}
+                    className='text-lg cursor-pointer text-txt-secondary-color far fa-eye-slash'
+                  ></i>
+                ) : (
+                  <i
+                    onClick={() => setShowPassword(false)}
+                    className='text-lg cursor-pointer text-txt-secondary-color far fa-eye'
+                  ></i>
+                )}
+              </div>
+              {/* {loginInputError.password ? (
+                <div className='text-red-500 font-semibold self-center text-sm'>
+                  {loginInputError.password}
+                </div>
+              ) : null} */}
             </div>
+            <div className='mt-10 flex flex-col gap-4'>
+              <button
+                className='bg-red-400 text-white p-3 sm:p-2 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline active:bg-blue-500
+                                shadow-lg'
+                type='submit'
+              >
+                Log In
+              </button>
+              <button
+                type='submit'
+                // onClick={() => {
+                //   setLoginInput({
+                //     email: 'rohan@gmail.com',
+                //     password: '1234abcd',
+                //   });
+                //   setLoginInputError({ email: '', password: '' });
+                // }}
+                className='bg-red-400 outline-primary text-white p-3 sm:p-2 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline active:bg-blue-500
+                                shadow-lg'
+              >
+                Log In With Test Credentials
+              </button>
+            </div>
+          </form>
+          <div className='mt-12 text-sm font-display font-semibold text-gray-700 text-center'>
+            Don't have an account ?{' '}
+            <Link
+              to={'/signup'}
+              replace={true}
+              //   state={location.state}
+              className='cursor-pointer text-red-400 hover:text-red-600'
+            >
+              Sign up
+            </Link>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
-    </>
+        </div>
+      </div>
+    </div>
   );
 };
 export default Login;

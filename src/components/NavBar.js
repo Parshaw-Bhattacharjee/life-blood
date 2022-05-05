@@ -2,12 +2,17 @@ import { React } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaHospitalAlt } from 'react-icons/fa';
 import { RiBankFill } from 'react-icons/ri';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   return (
-    <div className='fixed top-0 left-0 right-0 w-full flex justify-between items-center p-4'>
+    <div
+      className={`fixed top-0 left-0 right-0  w-full flex justify-between items-center p-4 ${
+        location.pathname !== '/' ? 'bg-white' : ''
+      }`}
+    >
       <div className=''>
         <img
           onClick={() => navigate('/')}
@@ -19,17 +24,17 @@ const NavBar = () => {
       <nav>
         <ul className='flex gap-8 p-4 bg-black/50 text-white rounded-3xl md:text-2xl'>
           <li>
-            <Link to={'/hospital'}>
+            <Link to={'/login/hospital'}>
               <FaHospitalAlt />
             </Link>
           </li>
           <li>
-            <Link to={'/blood_bank'}>
+            <Link to={'/login/blood_bank'}>
               <RiBankFill />
             </Link>
           </li>
           <li>
-            <Link to={'/donor'}>
+            <Link to={'/login/donor'}>
               <AiOutlineUser />
             </Link>
           </li>
