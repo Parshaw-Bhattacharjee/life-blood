@@ -1,6 +1,6 @@
 import React from "react";
 
-const RecentDonationSection = () => {
+const IndexSection = () => {
   return (
     <div>
       <h1>Hello</h1>
@@ -8,4 +8,4 @@ const RecentDonationSection = () => {
   );
 };
 
-export default RecentDonationSection;
+export default IndexSection;

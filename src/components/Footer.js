@@ -13,15 +13,13 @@ const Footer = () => {
             className="text-gray-400 hover:text-teal-400 duration-300
           text-sm cursor-pointer leading-6"
           >
-            <Link to={"/about"} />
-            About Us
+            <Link to={"/about"}>About Us</Link>
           </li>
           <li
             className="text-gray-400 hover:text-teal-400 duration-300
           text-sm cursor-pointer md:leading-6 "
           >
-            <Link to={"/contact"} />
-            Contact Us
+            <Link to={"/contact"}>Contact Us</Link>
           </li>
         </ul>
       </div>
