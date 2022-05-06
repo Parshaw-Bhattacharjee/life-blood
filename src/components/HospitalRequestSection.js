@@ -2,12 +2,12 @@ import React from "react";
 
 const HospitalRequestSection = () => {
   return (
-    <div className="flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg">
+    <div className="flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg md:w-1/2">
       <div className="">
         <h1 className="font-bold text-xl tracking-wide">Pending Request</h1>
       </div>
-      <div className="w-full p-2">
-        <div className="border-2 flex flex-col md:flex-row space-x-2 p-2 justify-between sm:items-center">
+      <div className="w-full flex flex-row p-2 justify-center items-center mx-2">
+        <div className="justify-between border-2 px-2 w-full">
           <div className="space-x-4 flex flex-row">
             <h1>Blood Bank</h1>
             <h1>Type</h1>

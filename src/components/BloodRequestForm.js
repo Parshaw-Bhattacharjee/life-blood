@@ -2,8 +2,8 @@ import React from "react";
 
 const BloodRequestForm = () => {
   return (
-    <div>
-      <form action="" method="post" className="flex flex-col space-y-4">
+    <div className="border-2 border-red-300 shadow-lg md:w-full rounded-lg">
+      <form action="" method="post" className="flex flex-col space-y-4 p-2">
         <div className="flex flex-col">
           <label htmlFor="" className="text-sm">
             Doctor Name
@@ -45,6 +45,9 @@ const BloodRequestForm = () => {
             className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
           />
         </div>
+        <button className="inline-block self-end bg-red-500 text-white font-bold rounded-lg px-6 py-2 uppercase text-sm">
+          Request
+        </button>
       </form>
     </div>
   );
