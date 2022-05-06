@@ -1,12 +1,7 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {
-      backgroundImage: {
-        "blood-donation-image":
-          'url("./components/assets/blood-donation-bg.jpg")',
-      },
-    },
+    extend: {},
   },
   plugins: [],
 };
