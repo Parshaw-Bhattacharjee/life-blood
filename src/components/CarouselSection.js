@@ -3,29 +3,30 @@ import React from "react";
 const CarouselSection = () => {
   return (
     <div>
-      <Carousel>
-        <div>
+      <div class="grid grid-cols-3 gap-4 items-center p-10">
+        <div class="mb-4">
           <img
-            src="https://www.sriramakrishnahospital.com/wp-content/uploads/2021/06/Blood-Donation-1.jpg"
+            src="https://www.wockhardthospitals.com/wp-content/uploads/2019/11/2971635.jpg"
+            class="min-w-full h-auto rounded-lg"
             alt=""
           />
-          <p className="legend">Legend 1</p>
         </div>
-        <div>
+
+        <div class="mb-4">
           <img
-            src="https://stanfordbloodcenter.org/wp-content/uploads/2020/06/Blood-facts_10-illustration-graphics__canteen.png"
+            src="https://www.fortishealthcare.com/blog/wp-content/uploads/2014/07/blog_24.png"
+            class="min-w-full h-auto rounded-full"
             alt=""
           />
-          <p className="legend">Legend 2</p>
         </div>
-        <div>
+        <div class="mb-4">
           <img
-            src="https://www.blog.123coimbatore.com/uploads/blog-images/27-04-2019_04-34-37_blood-donation-india.jpg"
+            src="https://www.1mg.com/articles/wp-content/uploads/2019/06/blood-donation.jpg"
+            class="min-w-full h-auto rounded-full"
             alt=""
           />
-          <p className="legend">Legend 3</p>
         </div>
-      </Carousel>
+      </div>
     </div>
   );
 };
