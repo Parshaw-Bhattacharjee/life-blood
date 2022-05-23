@@ -24,7 +24,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li title="blood bank">
-            <Link to={"/login/blood_bank"}>
+            <Link to={"/login/bloodbank"}>
               <RiBankFill />
             </Link>
           </li>
