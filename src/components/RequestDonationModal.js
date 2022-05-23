@@ -33,35 +33,18 @@ const RequestDonationModal = () => {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <form action="" className="flex flex-col space-y-4">
-                    <div>
-                      <label htmlFor="" className="text-sm">
-                        Name
-                      </label>
-                      <input
-                        type={"text"}
-                        placeholder="Your Name"
-                        className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="" className="text-sm">
-                        Email ID
-                      </label>
-                      <input
-                        type={"email"}
-                        placeholder="example@gmail.com"
-                        className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="" className="text-sm">
-                        Message
-                      </label>
-                      <textarea
-                        placeholder="Message"
-                        rows={"3"}
-                        className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
-                      />
+                    <div className="flex">
+                      <select>
+                        <option>-Blood Group-</option>
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>O+</option>
+                        <option>O-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                      </select>
                     </div>
                   </form>
                 </div>
