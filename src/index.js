@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import { LoaderProvider } from './contexts/loader-context';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <LoaderProvider>
+        <App />
+      </LoaderProvider>
     </BrowserRouter>
   </React.StrictMode>,
 
