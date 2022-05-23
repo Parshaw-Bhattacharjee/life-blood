@@ -7,13 +7,13 @@ const SignupHospital = ({ user }) => {
     <div className="mt-28 w-full min-h-screen flex  flex-col bg-white">
       <div className="w-full md:w-1/2 bg-white mt-10 px-12 self-center">
         <h2 className="text-center text-4xl text-red-600 font-display font-semibold">
-          Sign Up
+          Hospital Sign Up
         </h2>
         <div className="mt-12">
           <form>
             <div className="flex flex-col">
               <div className="text-sm font-bold text-gray-700 tracking-wide">
-                Name
+                Hospital Name
               </div>
               <div className="border-b border-gray-300">
                 <input
@@ -31,7 +31,7 @@ const SignupHospital = ({ user }) => {
                     //   setLoginInputError({ ...loginInputError, email: '' });
                     // }
                   }}
-                  placeholder="Enter your Name"
+                  placeholder="Enter Hospital Name"
                   required
                 />
               </div>
@@ -62,6 +62,65 @@ const SignupHospital = ({ user }) => {
                     // }
                   }}
                   placeholder="example@gmail.com"
+                  required
+                />
+              </div>
+              {/* {loginInputError.email ? (
+                <div className='text-red-500 font-semibold self-center text-sm'>
+                  {loginInputError.email}
+                </div>
+              ) : null} */}
+            </div>
+            <div className="mt-8 flex flex-col">
+              <div className="flex flex-row space-x-5">
+                <input
+                  type={"file"}
+                  placeholder="-Registration Document-"
+                  className="w-1/2 ring-1 ring-gray-300 rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
+                />
+                <div className="border-b border-gray-300">
+                  <input
+                    className="w-full text-lg p-2 focus:outline-none"
+                    type="number"
+                    //   value={loginInput.email}
+                    onChange={(e) => {
+                      // setLoginInput({ ...loginInput, email: e.target.value });
+                      // if (!validateEmail(e.target.value)) {
+                      //   setLoginInputError({
+                      //     ...loginInputError,
+                      //     email: 'Email should be in correct format',
+                      //   });
+                      // } else {
+                      //   setLoginInputError({ ...loginInputError, email: '' });
+                      // }
+                    }}
+                    placeholder="Pincode"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 flex flex-col">
+              <div className="text-sm font-bold text-gray-700 tracking-wide">
+                Location
+              </div>
+              <div className="border-b border-gray-300">
+                <input
+                  className="w-full text-lg p-2 focus:outline-none"
+                  type="text"
+                  //   value={loginInput.email}
+                  onChange={(e) => {
+                    // setLoginInput({ ...loginInput, email: e.target.value });
+                    // if (!validateEmail(e.target.value)) {
+                    //   setLoginInputError({
+                    //     ...loginInputError,
+                    //     email: 'Email should be in correct format',
+                    //   });
+                    // } else {
+                    //   setLoginInputError({ ...loginInputError, email: '' });
+                    // }
+                  }}
+                  placeholder="Enter your Location"
                   required
                 />
               </div>

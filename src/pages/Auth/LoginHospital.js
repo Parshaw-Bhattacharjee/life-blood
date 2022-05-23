@@ -7,7 +7,7 @@ const LoginHospital = ({ user }) => {
     <div className="mt-28 w-full min-h-screen flex flex-col bg-white">
       <div className="w-full md:w-1/2 bg-white mt-10 p-12 self-center shadow-lg">
         <h2 className="text-center text-4xl text-red-600 font-display font-semibold">
-          Sign in
+          Hospital Sign in
         </h2>
         <div className="mt-12">
           <form>
