@@ -18,7 +18,6 @@ function App() {
   return (
     <>
       <NavBar />
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/donor" element={<Donor />} />
