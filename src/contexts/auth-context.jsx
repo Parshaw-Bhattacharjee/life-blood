@@ -1,9 +1,14 @@
-import { async } from '@firebase/util';
-import { data } from 'autoprefixer';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
+
+import { createContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { auth, db } from '../firebase';
+import { userTypes } from '../constants/constants';
+import { useLoader } from './loader-context';
 import {
   addDoc,
   collection,
@@ -11,9 +16,6 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { createContext, useState, useEffect } from 'react';
-import { auth, db } from '../../firebase';
-import { useLoader } from './loader-context';
 
 const authContext = createContext();
 
@@ -33,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         });
       })();
     }
-  }, [token]);
+  }, [token, userId, userType]);
 
   const donorSignupHandler = async (name, email, password, bloodgroup) => {
     setShowLoader(true);
@@ -41,10 +43,10 @@ export const AuthProvider = ({ children }) => {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
       setUserId(user?.uid);
-      setUserType('users');
+      setUserType(userTypes.DONOR);
       setToken(user?.accessToken);
 
-      await addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, userTypes.DONOR), {
         uid: user.uid,
         name,
         bloodgroup,
@@ -62,10 +64,10 @@ export const AuthProvider = ({ children }) => {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
       setUserId(user?.uid);
-      setUserType('blood_bank');
+      setUserType(userTypes.BLOOD_BANK);
       setToken(user?.accessToken);
 
-      await addDoc(collection(db, 'blood_bank'), {
+      await addDoc(collection(db, userTypes.BLOOD_BANK), {
         uid: user.uid,
         name,
         bloodData: [],
@@ -77,19 +79,21 @@ export const AuthProvider = ({ children }) => {
       setShowLoader(false);
     }
   };
-  const hospitalSignupHandler = async (name, email, password) => {
+  const hospitalSignupHandler = async (name, email, location, password) => {
     setShowLoader(true);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
       setUserId(user?.uid);
-      setUserType('hospital');
+      setUserType(userTypes.HOSPITAL);
       setToken(user?.accessToken);
 
-      await addDoc(collection(db, 'hospital'), {
+      await addDoc(collection(db, userTypes.HOSPITAL), {
         uid: user.uid,
         name,
+        location,
         pendingRequests: [],
+        history: [],
         email,
       });
     } catch (err) {
@@ -99,19 +103,29 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginHandler = async (email, password) => {
+  const loginHandler = async (email, password, userType) => {
+    if (token) logoutHandler();
     setShowLoader(true);
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
       const user = res.user;
       setToken(user?.accessToken);
       setUserId(user?.uid);
+      setUserType(userType);
     } catch (err) {
       console.log(err);
     } finally {
       setShowLoader(false);
     }
   };
+  const logoutHandler = () => {
+    signOut(auth);
+    setToken('');
+    setUser(null);
+    setUserType(null);
+    setUserId('');
+  };
+
   return (
     <authContext.Provider
       value={{
@@ -119,10 +133,15 @@ export const AuthProvider = ({ children }) => {
         loginHandler,
         hospitalSignupHandler,
         bloodBankSignupHandler,
+        logoutHandler,
         user,
+        userType,
+        token,
       }}
     >
       {children}
     </authContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(authContext);
