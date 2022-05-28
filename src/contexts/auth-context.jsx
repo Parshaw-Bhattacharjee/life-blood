@@ -3,6 +3,7 @@ import { data } from 'autoprefixer';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import {
   addDoc,
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }) => {
       setUserType('users');
       setToken(user?.accessToken);
 
-      await addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, 'donors'), {
         uid: user.uid,
         name,
         bloodgroup,
@@ -99,18 +100,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginHandler = async (email, password) => {
+  const loginHandler = async (email, password, userType) => {
     setShowLoader(true);
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
       const user = res.user;
-      setToken(user?.accessToken);
       setUserId(user?.uid);
+      setUserType(userType);
+      setToken(user?.accessToken);
     } catch (err) {
       console.log(err);
     } finally {
       setShowLoader(false);
     }
+  };
+  const logoutHandler = () => {
+    signOut(auth);
+    setToken('');
+    setUserId('');
+    setUser(null);
+    setUserType(null);
   };
   return (
     <authContext.Provider
@@ -119,6 +128,7 @@ export const AuthProvider = ({ children }) => {
         loginHandler,
         hospitalSignupHandler,
         bloodBankSignupHandler,
+        logoutHandler,
         user,
       }}
     >
