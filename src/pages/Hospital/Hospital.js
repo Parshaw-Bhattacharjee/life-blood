@@ -1,7 +1,7 @@
 import React from "react";
-import AcceptanceHistory from "../components/AcceptanceHistory";
-import BloodRequestForm from "../components/BloodRequestForm";
-import HospitalRequestSection from "../components/HospitalRequestSection";
+import AcceptanceHistory from "./components/AcceptanceHistory";
+import BloodRequestForm from "./components/BloodRequestForm";
+import HospitalRequestSection from "./components/HospitalRequestSection";
 
 const Hospital = () => {
   return (

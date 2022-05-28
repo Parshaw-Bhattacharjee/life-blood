@@ -1,7 +1,7 @@
 import React from "react";
-import BankRequestSection from "../components/BankRequestSection";
-import Chart from "../components/Chart";
-import RequestDonationModal from "../components/RequestDonationModal";
+import BankRequestSection from "./components/BankRequestSection";
+import Chart from "../../components/Chart";
+import RequestDonationModal from "./components/RequestDonationModal";
 
 const BloodBank = () => {
   return (

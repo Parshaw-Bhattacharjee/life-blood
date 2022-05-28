@@ -1,5 +1,5 @@
 import React from "react";
-import DonorRequestSection from "../components/DonorRequestSection";
+import DonorRequestSection from "./components/DonorRequestSection";
 
 const Donor = () => {
   return (
