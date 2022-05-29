@@ -5,17 +5,18 @@ import { useAuth } from '../../contexts/auth-context';
 import { useEffect } from 'react';
 import { userTypes } from '../../constants/constants';
 const LoginHospital = () => {
-  const { loginHandler, token } = useAuth();
+  const { loginHandler, token, userType } = useAuth();
   const [hospitalInput, setHospitalInput] = useState({
     email: '',
     password: '',
   });
   const navigate = useNavigate();
   useEffect(() => {
-    if (token) {
+    if (token && userType === userTypes.HOSPITAL) {
       navigate('/hospital');
     }
-  }, [token]);
+  }, [token, userType]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     loginHandler(

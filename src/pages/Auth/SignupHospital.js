@@ -2,21 +2,22 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/auth-context';
+import { userTypes } from '../../constants/constants';
 
-const SignupHospital = ({ user }) => {
+const SignupHospital = () => {
   const [hospitalInput, setHospitalInput] = useState({
     email: '',
     name: '',
     password: '',
     location: '',
   });
-  const { hospitalSignupHandler, token } = useAuth();
+  const { hospitalSignupHandler, token, userType } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    if (token) {
+    if (token && userType === userTypes.HOSPITAL) {
       navigate('/hospital');
     }
-  }, [token]);
+  }, [token, userType]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();

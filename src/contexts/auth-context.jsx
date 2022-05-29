@@ -38,6 +38,8 @@ export const AuthProvider = ({ children }) => {
   }, [token, userId, userType]);
 
   const donorSignupHandler = async (name, email, password, bloodgroup) => {
+    if (token) logoutHandler();
+
     setShowLoader(true);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -58,7 +60,9 @@ export const AuthProvider = ({ children }) => {
       setShowLoader(false);
     }
   };
-  const bloodBankSignupHandler = async (name, email, password) => {
+  const bloodBankSignupHandler = async (name, email, location, password) => {
+    if (token) logoutHandler();
+
     setShowLoader(true);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -70,6 +74,8 @@ export const AuthProvider = ({ children }) => {
       await addDoc(collection(db, userTypes.BLOOD_BANK), {
         uid: user.uid,
         name,
+        location,
+        donorRequest: [],
         bloodData: [],
         email,
       });
@@ -80,6 +86,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
   const hospitalSignupHandler = async (name, email, location, password) => {
+    if (token) logoutHandler();
     setShowLoader(true);
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
