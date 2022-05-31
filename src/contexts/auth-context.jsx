@@ -12,8 +12,10 @@ import { useLoader } from './loader-context';
 import {
   addDoc,
   collection,
+  doc,
   onSnapshot,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 
@@ -22,6 +24,7 @@ const authContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [userUID, setUserUID] = useState(null);
   const [user, setUser] = useState(null);
   const [userType, setUserType] = useState(null);
   const { setShowLoader } = useLoader();
@@ -31,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       (async () => {
         const q = query(collection(db, userType), where('uid', '==', userId));
         onSnapshot(q, (data) => {
+          setUserUID(data.docs[0].id);
           setUser(data.docs[0].data());
         });
       })();
@@ -70,13 +74,13 @@ export const AuthProvider = ({ children }) => {
       setUserId(user?.uid);
       setUserType(userTypes.BLOOD_BANK);
       setToken(user?.accessToken);
-
+      console.log(res);
       await addDoc(collection(db, userTypes.BLOOD_BANK), {
         uid: user.uid,
         name,
         location,
         donorRequest: [],
-        bloodData: [],
+        bloodData: {},
         email,
       });
     } catch (err) {
@@ -91,6 +95,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
+
       setUserId(user?.uid);
       setUserType(userTypes.HOSPITAL);
       setToken(user?.accessToken);
@@ -99,9 +104,11 @@ export const AuthProvider = ({ children }) => {
         uid: user.uid,
         name,
         location,
-        pendingRequests: [],
-        history: [],
+
         email,
+      });
+      await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
+        [user?.uid]: [],
       });
     } catch (err) {
       console.log(err);
@@ -142,8 +149,10 @@ export const AuthProvider = ({ children }) => {
         bloodBankSignupHandler,
         logoutHandler,
         user,
+        userId,
         userType,
         token,
+        userUID,
       }}
     >
       {children}

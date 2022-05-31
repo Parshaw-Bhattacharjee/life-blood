@@ -14,6 +14,7 @@ import SignupBloodBank from './pages/Auth/SignupBloodBank';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import { useAuth } from './contexts/auth-context';
+import { PrivateRoute } from './components/PrivateRoute';
 
 function App() {
   const { user, userType } = useAuth();
@@ -23,9 +24,30 @@ function App() {
       <NavBar />
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/donor' element={<Donor />} />
-        <Route path='/bloodbank' element={<BloodBank />} />
-        <Route path='/hospital' element={<Hospital />} />
+        <Route
+          path='/donor'
+          element={
+            <PrivateRoute>
+              <Donor />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/bloodbank'
+          element={
+            <PrivateRoute>
+              <BloodBank />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/hospital'
+          element={
+            <PrivateRoute>
+              <Hospital />
+            </PrivateRoute>
+          }
+        />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/login/donor' element={<LoginDonor user={'donor'} />} />
