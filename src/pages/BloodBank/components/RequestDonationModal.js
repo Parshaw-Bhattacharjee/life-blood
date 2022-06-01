@@ -11,8 +11,6 @@ const RequestDonationModal = () => {
   const { user, userType, userId, userUID } = useAuth();
 
   const requestClickHandler = async () => {
-    console.log(bloodGroup);
-    console.log(user);
     if (user && userType && bloodGroup) {
       await updateDoc(doc(db, userType, userUID), {
         donorRequest: [...user.donorRequest, bloodGroup],

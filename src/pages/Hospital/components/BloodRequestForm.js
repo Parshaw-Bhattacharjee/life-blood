@@ -14,7 +14,7 @@ const BloodRequestForm = ({ hospitalData, setHospitalData }) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(bloodReqForm);
+
     (async () => {
       await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
         [user?.uid]: [

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const AcceptanceHistory = ({ hospitalData }) => {
-  console.log(hospitalData, 'acce');
   return (
     <div className='flex flex-col w-2/3 space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg'>
       <div className=''>

@@ -21,7 +21,7 @@ const SignupBloodBank = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(bloodbankInput);
+
     bloodBankSignupHandler(
       bloodbankInput.name,
       bloodbankInput.email,

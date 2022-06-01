@@ -5,7 +5,6 @@ export const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const { token } = useAuth();
 
-  console.log(location, 'location', token);
   return (
     <>{token ? children : <Navigate to={`/login${location.pathname}`} />}</>
   );

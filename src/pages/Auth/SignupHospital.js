@@ -21,7 +21,7 @@ const SignupHospital = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(hospitalInput);
+
     hospitalSignupHandler(
       hospitalInput.name,
       hospitalInput.email,

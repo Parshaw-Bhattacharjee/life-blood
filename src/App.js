@@ -15,12 +15,24 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import { useAuth } from './contexts/auth-context';
 import { PrivateRoute } from './components/PrivateRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { user, userType } = useAuth();
   console.log(user, userType);
   return (
     <>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={false}
+        newestOnTop={false}
+        closeOnClick
+        theme='colored'
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
       <NavBar />
       <Routes>
         <Route path='/' element={<LandingPage />} />

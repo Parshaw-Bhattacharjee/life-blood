@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       setUserId(user?.uid);
       setUserType(userTypes.BLOOD_BANK);
       setToken(user?.accessToken);
-      console.log(res);
+
       await addDoc(collection(db, userTypes.BLOOD_BANK), {
         uid: user.uid,
         name,

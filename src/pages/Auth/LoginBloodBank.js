@@ -19,7 +19,7 @@ const LoginBloodBank = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(bloodBankInput);
+
     loginHandler(
       bloodBankInput.email,
       bloodBankInput.password,

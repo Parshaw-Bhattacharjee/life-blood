@@ -22,7 +22,6 @@ const Hospital = () => {
     }
   }, [user]);
 
-  console.log(hospitalData);
   return (
     <div className='flex flex-col p-2 justify-center items-center'>
       <div className='flex w-full min-h-screen justify-center items-center'>

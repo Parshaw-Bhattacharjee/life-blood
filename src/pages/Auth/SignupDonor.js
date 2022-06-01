@@ -22,7 +22,7 @@ const SignupDonor = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(donorInput);
+
     donorSignupHandler(
       donorInput.name,
       donorInput.email,
