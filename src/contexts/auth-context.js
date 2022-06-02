@@ -2,13 +2,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from 'firebase/auth';
+} from "firebase/auth";
 
-import { createContext, useState, useEffect } from 'react';
-import { useContext } from 'react';
-import { auth, db } from '../firebase';
-import { userTypes } from '../constants/constants';
-import { useLoader } from './loader-context';
+import { createContext, useState, useEffect } from "react";
+import { useContext } from "react";
+import { auth, db } from "../firebase";
+import { userTypes } from "../constants/constants";
+import { useLoader } from "./loader-context";
 import {
   addDoc,
   collection,
@@ -17,7 +17,7 @@ import {
   query,
   updateDoc,
   where,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 
 const authContext = createContext();
 
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token && userId && userType) {
       (async () => {
-        const q = query(collection(db, userType), where('uid', '==', userId));
+        const q = query(collection(db, userType), where("uid", "==", userId));
         onSnapshot(q, (data) => {
           setUserUID(data.docs[0].id);
           setUser(data.docs[0].data());
@@ -107,7 +107,7 @@ export const AuthProvider = ({ children }) => {
 
         email,
       });
-      await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
+      await updateDoc(doc(db, "requests", "6B5EW5l9P0sIA260gwxN"), {
         [user?.uid]: [],
       });
     } catch (err) {
@@ -132,12 +132,13 @@ export const AuthProvider = ({ children }) => {
       setShowLoader(false);
     }
   };
+
   const logoutHandler = () => {
     signOut(auth);
-    setToken('');
+    setToken("");
     setUser(null);
     setUserType(null);
-    setUserId('');
+    setUserId("");
   };
 
   return (
