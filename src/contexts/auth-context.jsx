@@ -89,6 +89,8 @@ export const AuthProvider = ({ children }) => {
           'A-': 50,
           'AB+': 50,
           'AB-': 50,
+          'O+': 50,
+          'O-': 50,
         },
         email,
       });
