@@ -8,32 +8,15 @@ import BloodRequestForm from './components/BloodRequestForm';
 import HospitalRequestSection from './components/HospitalRequestSection';
 
 const Hospital = () => {
-  const [hospitalData, setHospitalData] = useState([]);
-  const { user } = useAuth();
-
-  useEffect(() => {
-    if (user) {
-      (async () => {
-        const q = query(collection(db, 'requests'));
-        onSnapshot(q, (data) => {
-          setHospitalData(data.docs[0].data()[user.uid]);
-        });
-      })();
-    }
-  }, [user]);
-
   return (
     <div className='flex flex-col p-2 justify-center items-center'>
       <div className='flex w-full min-h-screen justify-center items-center'>
         <div className='flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 w-full max-w-4xl p-8 sm:p-12 rounded-xl overflow-hidden'>
-          <HospitalRequestSection hospitalData={hospitalData} />
-          <BloodRequestForm
-            hospitalData={hospitalData}
-            setHospitalData={setHospitalData}
-          />
+          <HospitalRequestSection />
+          <BloodRequestForm />
         </div>
       </div>
-      <AcceptanceHistory hospitalData={hospitalData} />
+      <AcceptanceHistory />
     </div>
   );
 };

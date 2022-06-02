@@ -30,11 +30,12 @@ export const AuthProvider = ({ children }) => {
   const { setShowLoader } = useLoader();
 
   useEffect(() => {
+    console.log(userId);
     if (token && userId && userType) {
       (async () => {
         const q = query(collection(db, userType), where('uid', '==', userId));
         onSnapshot(q, (data) => {
-          setUserUID(data.docs[0].id);
+          setUserUID(data.docs[0]?.id);
           setUser(data.docs[0].data());
         });
       })();
@@ -80,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         name,
         location,
         donorRequest: [],
-        bloodData: {},
+        bloodData: { 'A+': 0, 'B+': 0, 'B-': 0, 'A-': 0, 'AB+': 0, 'AB-': 0 },
         email,
       });
     } catch (err) {
@@ -104,11 +105,8 @@ export const AuthProvider = ({ children }) => {
         uid: user.uid,
         name,
         location,
-
         email,
-      });
-      await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
-        [user?.uid]: [],
+        hospitalRequests: [],
       });
     } catch (err) {
       console.log(err);
@@ -149,6 +147,7 @@ export const AuthProvider = ({ children }) => {
         bloodBankSignupHandler,
         logoutHandler,
         user,
+        setUser,
         userId,
         userType,
         token,

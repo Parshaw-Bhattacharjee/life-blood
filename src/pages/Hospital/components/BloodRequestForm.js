@@ -2,42 +2,39 @@ import { doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useState } from 'react';
 import { v4 } from 'uuid';
+import { userTypes } from '../../../constants/constants';
 import { useAuth } from '../../../contexts/auth-context';
 import { db } from '../../../firebase';
 
-const BloodRequestForm = ({ hospitalData, setHospitalData }) => {
-  const { user } = useAuth();
+const BloodRequestForm = () => {
+  const { user, userUID } = useAuth();
   const [bloodReqForm, setBloodReqForm] = useState({
     quantity: '',
     bloodGroup: '',
+    doctorName: '',
   });
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     (async () => {
-      await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
-        [user?.uid]: [
-          ...hospitalData,
+      await updateDoc(doc(db, userTypes.HOSPITAL, userUID), {
+        hospitalRequests: [
+          ...user.hospitalRequests,
           {
-            isAccepted: false,
+            bloodBankName: '',
+            pending: true,
             quantity: bloodReqForm.quantity,
             bloodGroup: bloodReqForm.bloodGroup,
-            name: user.name,
-            uid: user.uid,
+            hospitalName: user.name,
+            hospitalId: userUID,
+            hospitalUID: user.uid,
             id: v4(),
           },
         ],
       });
     })();
-    setHospitalData([
-      ...hospitalData,
-      {
-        isAccepted: false,
-        quantity: bloodReqForm.quantity,
-        bloodGroup: bloodReqForm.bloodGroup,
-      },
-    ]);
+
     setBloodReqForm({ quantity: '', bloodGroup: '' });
   };
   return (
@@ -49,6 +46,10 @@ const BloodRequestForm = ({ hospitalData, setHospitalData }) => {
           </label>
           <input
             type={'text'}
+            value={bloodReqForm.doctorName}
+            onChange={(e) =>
+              setBloodReqForm({ ...bloodReqForm, doctorName: e.target.value })
+            }
             placeholder="Enter Doctor's Name"
             className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300'
           />
@@ -64,7 +65,9 @@ const BloodRequestForm = ({ hospitalData, setHospitalData }) => {
         <div className='flex flex-row space-x-2'>
           <select
             value={bloodReqForm.bloodGroup}
-            onChange={(e) => setBloodReqForm({ bloodGroup: e.target.value })}
+            onChange={(e) =>
+              setBloodReqForm({ ...bloodReqForm, bloodGroup: e.target.value })
+            }
             className='w-20'
           >
             <option value={''} disabled>
