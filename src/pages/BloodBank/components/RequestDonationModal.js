@@ -16,7 +16,14 @@ const RequestDonationModal = () => {
       await updateDoc(doc(db, userType, userUID), {
         donorRequest: [
           ...user.donorRequest,
-          { username: '', id: v4(), userUID, bloodGroup, pending: false },
+          {
+            username: '',
+            id: v4(),
+            bloodBankName: user.name,
+            userUID,
+            bloodGroup,
+            pending: true,
+          },
         ],
       });
       setShowModal(false);
