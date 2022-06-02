@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }) => {
       setShowLoader(false);
     }
   };
+
   const bloodBankSignupHandler = async (name, email, location, password) => {
     if (token) logoutHandler();
 
@@ -90,6 +91,7 @@ export const AuthProvider = ({ children }) => {
       setShowLoader(false);
     }
   };
+
   const hospitalSignupHandler = async (name, email, location, password) => {
     if (token) logoutHandler();
     setShowLoader(true);
