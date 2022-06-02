@@ -1,6 +1,9 @@
 import React from 'react';
+import { useAuth } from '../../../contexts/auth-context';
 
-const HospitalRequestSection = ({ hospitalData }) => {
+const HospitalRequestSection = () => {
+  const { user } = useAuth();
+
   return (
     <div className='flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg md:w-1/2'>
       <div className=''>
@@ -13,7 +16,7 @@ const HospitalRequestSection = ({ hospitalData }) => {
             <h1>Type</h1>
             <h1>Qt.</h1>
           </div>
-          {hospitalData
+          {user.hospitalRequests
             ?.filter((el) => !el.isAccepted)
             .map((el) => {
               return (
