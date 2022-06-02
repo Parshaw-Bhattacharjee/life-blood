@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '../../../contexts/auth-context';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
+import { v4 } from 'uuid';
 
 const RequestDonationModal = () => {
   const [showModal, setShowModal] = React.useState(false);
@@ -13,7 +14,10 @@ const RequestDonationModal = () => {
   const requestClickHandler = async () => {
     if (user && userType && bloodGroup) {
       await updateDoc(doc(db, userType, userUID), {
-        donorRequest: [...user.donorRequest, bloodGroup],
+        donorRequest: [
+          ...user.donorRequest,
+          { username: '', id: v4(), userUID, bloodGroup, pending: false },
+        ],
       });
       setShowModal(false);
     }

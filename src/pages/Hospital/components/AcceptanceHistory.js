@@ -1,6 +1,8 @@
 import React from 'react';
+import { useAuth } from '../../../contexts/auth-context';
 
-const AcceptanceHistory = ({ hospitalData }) => {
+const AcceptanceHistory = () => {
+  const { user } = useAuth();
   return (
     <div className='flex flex-col w-2/3 space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg'>
       <div className=''>
@@ -13,15 +15,12 @@ const AcceptanceHistory = ({ hospitalData }) => {
             <h1>Blood group</h1>
             <h1>Quantity</h1>
           </div>
-          {hospitalData
-            ?.filter((el) => el.isAccepted)
+          {user?.hospitalRequests
+            ?.filter((el) => !el.pending)
             .map((el) => {
               return (
-                <div
-                  key={Math.random() * 100}
-                  className='space-x-12 flex flex-row'
-                >
-                  <h1>Life Blood Bank</h1>
+                <div key={el.id} className='space-x-12 flex flex-row'>
+                  <h1>{el.bloodBankName}</h1>
                   <h1>{el.bloodGroup}</h1>
                   <h1>{el.quantity}</h1>
                 </div>

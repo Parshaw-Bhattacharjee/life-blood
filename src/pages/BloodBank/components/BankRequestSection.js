@@ -13,18 +13,20 @@ const BankRequestSection = ({
   const { userUID, user } = useAuth();
 
   const onAcceptHandler = (request) => {
-    const updatedReq = hospitalRequests.map((el) => {
-      if (el.id === request.id) return { ...el, isAccepted: true };
-      return el;
-    });
-
     if (Number(user.bloodData[request.bloodGroup]) < Number(request.quantity)) {
       ToastHandler('warn', 'Require more blood in storage');
       return;
     }
+    const updatedReq = hospitalRequests
+      .filter((el) => el.hospitalId === request.hospitalId)
+      .map((el) => {
+        if (el.id === request.id)
+          return { ...el, bloodBankName: user.name, pending: false };
+        return el;
+      });
     (async () => {
-      await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
-        [request.uid]: updatedReq,
+      await updateDoc(doc(db, 'hospital', request.hospitalId), {
+        hospitalRequests: updatedReq,
       });
       await updateDoc(doc(db, 'blood_bank', userUID), {
         bloodData: {
@@ -52,9 +54,13 @@ const BankRequestSection = ({
       </div>
       <div className='w-full p-2 flex-col'>
         {hospitalRequests.map((el) => {
-          if (!el.isAccepted)
+          if (el.pending)
             return (
-              <HospitalRequest request={el} onAcceptHandler={onAcceptHandler} />
+              <HospitalRequest
+                key={el.id}
+                request={el}
+                onAcceptHandler={onAcceptHandler}
+              />
             );
           else return null;
         })}

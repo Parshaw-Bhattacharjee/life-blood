@@ -24,7 +24,8 @@ const BloodRequestForm = () => {
           {
             bloodBankName: '',
             pending: true,
-            quantity: bloodReqForm.quantity,
+            doctorName: bloodReqForm.doctorName,
+            quantity: Number(bloodReqForm.quantity),
             bloodGroup: bloodReqForm.bloodGroup,
             hospitalName: user.name,
             hospitalId: userUID,
@@ -35,7 +36,7 @@ const BloodRequestForm = () => {
       });
     })();
 
-    setBloodReqForm({ quantity: '', bloodGroup: '' });
+    setBloodReqForm({ quantity: '', bloodGroup: '', doctorName: '' });
   };
   return (
     <div className='border-2 border-red-300 shadow-lg md:w-full rounded-lg'>

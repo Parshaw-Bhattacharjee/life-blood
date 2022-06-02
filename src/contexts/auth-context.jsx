@@ -82,7 +82,14 @@ export const AuthProvider = ({ children }) => {
         name,
         location,
         donorRequest: [],
-        bloodData: { 'A+': 0, 'B+': 0, 'B-': 0, 'A-': 0, 'AB+': 0, 'AB-': 0 },
+        bloodData: {
+          'A+': 50,
+          'B+': 50,
+          'B-': 50,
+          'A-': 50,
+          'AB+': 50,
+          'AB-': 50,
+        },
         email,
       });
     } catch (err) {
