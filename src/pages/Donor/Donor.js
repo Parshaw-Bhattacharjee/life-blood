@@ -7,6 +7,7 @@ import { db } from "../../firebase";
 import DonorRequestSection from "./components/DonorRequestSection";
 
 const Donor = () => {
+  const [BloodBankRequests, setBloodBankRequests] = useState([]);
   const { user } = useAuth();
   const [bloodBank, setBloodBank] = useState({});
 
@@ -23,7 +24,7 @@ const Donor = () => {
     })();
   }, [user]);
 
-  console.log(user, "gf");
+  console.log(bloodBank, "gf");
   return (
     <div>
       <div className="flex w-full min-h-screen justify-center items-center">
@@ -34,7 +35,11 @@ const Donor = () => {
               <h1 className="font-bold text-3xl p-5">{user?.bloodgroup}</h1>
             </div>
           </div>
-          <DonorRequestSection bloodBank={bloodBank} />
+          <DonorRequestSection
+            BloodBankRequests={BloodBankRequests}
+            setBloodBankRequests={setBloodBankRequests}
+            bloodBank={bloodBank}
+          />
         </div>
       </div>
     </div>
