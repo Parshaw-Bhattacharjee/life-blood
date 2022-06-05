@@ -25,7 +25,7 @@ const LandingPage = () => {
   }, []);
   useEffect(() => {
     (async () => {
-      const q = query(collection(db, "blood_bank"));
+      const q = query(collection(db, "BloodBank"));
       onSnapshot(q, (data) => {
         const dataObj = data.docs[0].data();
 
