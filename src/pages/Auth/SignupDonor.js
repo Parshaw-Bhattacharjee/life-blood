@@ -26,7 +26,10 @@ const SignupDonor = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const storageRef = ref(storage, `/Donor/${files?.name}`);
+    const storageRef = ref(
+      storage,
+      `/Donor/${donorInput.email}/${files?.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, files);
     uploadTask.on("state_changed", (err) => console.log(err));
     donorSignupHandler(

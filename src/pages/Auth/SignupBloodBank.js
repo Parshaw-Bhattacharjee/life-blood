@@ -25,7 +25,10 @@ const SignupBloodBank = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const storageRef = ref(storage, `/BloodBank/${files?.name}`);
+    const storageRef = ref(
+      storage,
+      `/BloodBank/${bloodbankInput.email}/${files?.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, files);
     uploadTask.on("state_changed", (err) => console.log(err));
     bloodBankSignupHandler(

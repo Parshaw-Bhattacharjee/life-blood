@@ -24,7 +24,10 @@ const SignupHospital = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const storageRef = ref(storage, `/Hospital/${files?.name}`);
+    const storageRef = ref(
+      storage,
+      `/Hospital/${hospitalInput.email}${files?.name}`
+    );
     const uploadTask = uploadBytesResumable(storageRef, files);
     uploadTask.on("state_changed", (err) => console.log(err));
     hospitalSignupHandler(
