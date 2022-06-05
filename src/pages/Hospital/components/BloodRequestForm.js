@@ -4,7 +4,8 @@ import { useState } from "react";
 import { v4 } from "uuid";
 import { userTypes } from "../../../constants/constants";
 import { useAuth } from "../../../contexts/auth-context";
-import { db } from "../../../firebase";
+import { db, storage } from "../../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const BloodRequestForm = () => {
   const { user, userUID } = useAuth();
@@ -13,29 +14,43 @@ const BloodRequestForm = () => {
     bloodGroup: "",
     doctorName: "",
   });
+  const [files, setFiles] = useState("");
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-
-    (async () => {
-      await updateDoc(doc(db, userTypes.HOSPITAL, userUID), {
-        hospitalRequests: [
-          ...user.hospitalRequests,
-          {
-            bloodBankName: "",
-            pending: true,
-            doctorName: bloodReqForm.doctorName,
-            quantity: Number(bloodReqForm.quantity),
-            bloodGroup: bloodReqForm.bloodGroup,
-            hospitalName: user.name,
-            hospitalId: userUID,
-            hospitalUID: user.uid,
-            id: v4(),
-          },
-        ],
-      });
-    })();
-
+    const storageRef = ref(storage, `/HospitalRequests/${files?.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, files);
+    uploadTask.on(
+      "state_changed",
+      (err) => console.log(err),
+      () => {},
+      () => {
+        // download url
+        const downloadUrl = getDownloadURL(uploadTask.snapshot.ref).then(
+          (url) => {
+            (async () => {
+              await updateDoc(doc(db, userTypes.HOSPITAL, userUID), {
+                hospitalRequests: [
+                  ...user.hospitalRequests,
+                  {
+                    bloodBankName: "",
+                    pending: true,
+                    doctorName: bloodReqForm.doctorName,
+                    quantity: Number(bloodReqForm.quantity),
+                    bloodGroup: bloodReqForm.bloodGroup,
+                    hospitalName: user.name,
+                    hospitalId: userUID,
+                    hospitalUID: user.uid,
+                    downloadUrl: url,
+                    id: v4(),
+                  },
+                ],
+              });
+            })();
+          }
+        );
+      }
+    );
     setBloodReqForm({ quantity: "", bloodGroup: "", doctorName: "" });
   };
   return (
@@ -97,6 +112,10 @@ const BloodRequestForm = () => {
             className="ring-1 ring-gray-300 w-20 rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
           />
           <input
+            onChange={(e) => {
+              console.log(e.target.files);
+              setFiles(e?.target?.files[0]);
+            }}
             required
             type={"file"}
             placeholder="-"

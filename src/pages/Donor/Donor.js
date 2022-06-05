@@ -1,7 +1,5 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useAuth } from "../../contexts/auth-context";
 import { db } from "../../firebase";
 import DonorRequestSection from "./components/DonorRequestSection";
@@ -13,7 +11,7 @@ const Donor = () => {
 
   useEffect(() => {
     (async () => {
-      const q = query(collection(db, "blood_bank"));
+      const q = query(collection(db, "BloodBank"));
       onSnapshot(q, (data) => {
         let bloodRequestData = [];
         let allBloodBank = [];

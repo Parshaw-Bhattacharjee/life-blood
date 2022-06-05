@@ -2,13 +2,14 @@ export const HospitalRequest = ({ request, onAcceptHandler }) => {
   console.log(request);
 
   return (
-    <div className="border-2 flex flex-col md:flex-row space-x-2 p-2 justify-between sm:items-center">
-      <div className="space-x-4 flex flex-row">
-        <h1>{request.hospitalName}</h1>
-        <h1>{request.bloodGroup}</h1>
-        <h1>{request.quantity}</h1>
-      </div>
-      <div className="space-x-4 flex flex-row">
+    <tr className="border-2">
+      <td>
+        <a href={request.downloadUrl}>{request.hospitalName}</a>
+      </td>
+      <td>{request.bloodGroup}</td>
+      <td>{request.quantity}</td>
+
+      <td className="">
         <button
           onClick={() => {
             onAcceptHandler(request);
@@ -17,7 +18,7 @@ export const HospitalRequest = ({ request, onAcceptHandler }) => {
         >
           Accept
         </button>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 };

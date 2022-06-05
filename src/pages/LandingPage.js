@@ -49,7 +49,7 @@ const LandingPage = () => {
     <div className="flex flex-col w-full h-screen justify-center items-center">
       <CarouselSection />
 
-      <div className="w-full md:w-1/2">
+      <div className="w-full md:w-1/2 md:mb-20">
         <Chart bloodData={bloodData} />
       </div>
     </div>

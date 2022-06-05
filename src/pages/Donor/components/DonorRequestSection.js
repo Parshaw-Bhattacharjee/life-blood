@@ -2,13 +2,7 @@ import React from "react";
 import { BloodBankRequest } from "./BloodBankRequest";
 import { useAuth } from "../../../contexts/auth-context";
 import { db } from "../../../firebase";
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 const DonorRequestSection = ({
   setBloodBank,
@@ -28,7 +22,7 @@ const DonorRequestSection = ({
           return el;
         });
       console.log(updatedReq);
-      await updateDoc(doc(db, "blood_bank", request.userUID), {
+      await updateDoc(doc(db, "BloodBank", request.userUID), {
         donorRequest: updatedReq,
       });
     })();
@@ -44,20 +38,6 @@ const DonorRequestSection = ({
         return el;
       })
     );
-    // (async () => {
-    //   await updateDoc(doc(db, 'requests', '6B5EW5l9P0sIA260gwxN'), {
-    //     [request.uid]: updatedReq,
-    //   });
-    //   await updateDoc(doc(db, 'blood_bank', userUID), {
-    //     bloodData: {
-    //       ...user.bloodData,
-    //       [request.bloodGroup]:
-    //         Number(user.bloodData[request.bloodGroup]) -
-    //         Number(request.quantity),
-    //     },
-    //   });
-    // })();
-    // setBloodBankRequests(updatedReq);
   };
 
   return (

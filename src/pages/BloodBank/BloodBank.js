@@ -1,9 +1,8 @@
-import React from 'react';
-import BankRequestSection from './components/BankRequestSection';
-
-import RequestDonationModal from './components/RequestDonationModal';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../../contexts/auth-context';
+import React from "react";
+import BankRequestSection from "./components/BankRequestSection";
+import RequestDonationModal from "./components/RequestDonationModal";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../contexts/auth-context";
 import {
   collection,
   doc,
@@ -11,12 +10,10 @@ import {
   query,
   updateDoc,
   where,
-} from 'firebase/firestore';
-import { db } from '../../firebase';
-import ShowChart from '../../components/Chart';
-import PendingRequests from './components/PendingRequests';
-import { useRef } from 'react';
-import { DonorRequest } from './components/DonorRequest';
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import ShowChart from "../../components/Chart";
+import { DonorRequest } from "./components/DonorRequest";
 
 const BloodBank = () => {
   const [hospitalRequests, setHospitalRequests] = useState([]);
@@ -25,9 +22,9 @@ const BloodBank = () => {
     labels: [],
     datasets: [
       {
-        label: 'Blood Storage Data',
+        label: "Blood Storage Data",
         data: [],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   });
@@ -35,14 +32,15 @@ const BloodBank = () => {
 
   useEffect(() => {
     (async () => {
-      const q = query(collection(db, 'hospital'));
+      const q = query(collection(db, "Hospital"));
       onSnapshot(q, (data) => {
         let hospitalData = [];
         data.docs.forEach((el) => {
           hospitalData = [...hospitalData, ...el.data().hospitalRequests];
 
-          console.log(el.data(), 'data');
+          console.log(el.data(), "data");
         });
+        console.log(hospitalData);
         setHospitalRequests(hospitalData);
       });
     })();
@@ -52,7 +50,7 @@ const BloodBank = () => {
 
   useEffect(() => {
     (async () => {
-      const q = query(collection(db, 'blood_bank'), where('uid', '==', userId));
+      const q = query(collection(db, "BloodBank"), where("uid", "==", userId));
       onSnapshot(q, (data) => {
         const dataObj = data.docs[0].data();
 
@@ -60,11 +58,11 @@ const BloodBank = () => {
           labels: Object.keys(dataObj.bloodData).sort((a, b) => a - b),
           datasets: [
             {
-              label: 'Blood Storage Data',
+              label: "Blood Storage Data",
               data: Object.keys(dataObj.bloodData)
                 .sort((a, b) => a - b)
                 .map((el) => dataObj.bloodData[el]),
-              backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
           ],
         });
@@ -77,7 +75,7 @@ const BloodBank = () => {
       if (request.id === el.id) return { ...el, pending: false };
       else return el;
     });
-    await updateDoc(doc(db, 'blood_bank', userUID), {
+    await updateDoc(doc(db, "BloodBank", userUID), {
       donorRequest: updatedData,
       bloodData: {
         ...user.bloodData,
@@ -88,8 +86,8 @@ const BloodBank = () => {
 
   return (
     <div>
-      <div className='flex flex-col w-full min-h-screen justify-center items-center'>
-        <div className='flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 w-full max-w-4xl p-8 sm:p-12 rounded-xl overflow-hidden'>
+      <div className="flex flex-col w-full min-h-screen justify-center items-center">
+        <div className="md:w-3/4 gap-4 flex flex-col md:flex-row w-full  p-2 sm:p-12 rounded-xl overflow-hidden">
           <BankRequestSection
             hospitalRequests={hospitalRequests}
             setHospitalRequests={setHospitalRequests}

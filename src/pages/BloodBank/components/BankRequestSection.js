@@ -1,9 +1,9 @@
-import { doc, updateDoc } from 'firebase/firestore';
-import React from 'react';
-import { ToastHandler } from '../../../constants/constants';
-import { useAuth } from '../../../contexts/auth-context';
-import { db } from '../../../firebase';
-import { HospitalRequest } from './HospitalRequest';
+import { doc, updateDoc } from "firebase/firestore";
+import React from "react";
+import { ToastHandler } from "../../../constants/constants";
+import { useAuth } from "../../../contexts/auth-context";
+import { db } from "../../../firebase";
+import { HospitalRequest } from "./HospitalRequest";
 
 const BankRequestSection = ({
   hospitalRequests,
@@ -14,7 +14,7 @@ const BankRequestSection = ({
 
   const onAcceptHandler = (request) => {
     if (Number(user.bloodData[request.bloodGroup]) < Number(request.quantity)) {
-      ToastHandler('warn', 'Require more blood in storage');
+      ToastHandler("warn", "Require more blood in storage");
       return;
     }
     const updatedReq = hospitalRequests
@@ -25,10 +25,10 @@ const BankRequestSection = ({
         return el;
       });
     (async () => {
-      await updateDoc(doc(db, 'hospital', request.hospitalId), {
+      await updateDoc(doc(db, "Hospital", request.hospitalId), {
         hospitalRequests: updatedReq,
       });
-      await updateDoc(doc(db, 'blood_bank', userUID), {
+      await updateDoc(doc(db, "BloodBank", userUID), {
         bloodData: {
           ...user.bloodData,
           [request.bloodGroup]:
@@ -41,30 +41,33 @@ const BankRequestSection = ({
     setHospitalRequests(updatedReq);
   };
   return (
-    <div className='flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg'>
-      <div className=''>
-        <h1 className='font-bold text-xl tracking-wide'>Hospital Request</h1>
+    <div className="flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg w-full">
+      <div className="">
+        <h1 className="font-bold text-xl tracking-wide">Hospital Request</h1>
       </div>
-      <div className='border-2 flex flex-col md:flex-row space-x-2 p-2 justify-between sm:items-center'>
-        <div className='space-x-4 flex flex-row'>
-          <h1>Hospital name</h1>
-          <h1>Blood group</h1>
-          <h1>Quantity</h1>
-        </div>
-      </div>
-      <div className='w-full p-2 flex-col'>
-        {hospitalRequests.map((el) => {
-          if (el.pending)
-            return (
-              <HospitalRequest
-                key={el.id}
-                request={el}
-                onAcceptHandler={onAcceptHandler}
-              />
-            );
-          else return null;
-        })}
-      </div>
+      <table className="p-2 m-4 w-3/4">
+        <thead className="">
+          <tr className="">
+            <th className="text-left">Hospital name</th>
+            <th className="text-left">Blood group</th>
+            <th className="text-left">Quantity</th>
+            <th className="text-left">Status</th>
+          </tr>
+        </thead>
+        <tbody className="w-full p-2 flex-col">
+          {hospitalRequests.map((el) => {
+            if (el.pending)
+              return (
+                <HospitalRequest
+                  key={el.id}
+                  request={el}
+                  onAcceptHandler={onAcceptHandler}
+                />
+              );
+            else return null;
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };

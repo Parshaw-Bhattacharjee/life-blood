@@ -1,19 +1,19 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useAuth } from '../../contexts/auth-context';
-import { useEffect } from 'react';
-import { userTypes } from '../../constants/constants';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../contexts/auth-context";
+import { useEffect } from "react";
+import { userTypes } from "../../constants/constants";
 const LoginHospital = () => {
-  const { loginHandler, token, userType } = useAuth();
+  const { loginHandler, token, userType, error } = useAuth();
   const [hospitalInput, setHospitalInput] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
   useEffect(() => {
     if (token && userType === userTypes.HOSPITAL) {
-      navigate('/hospital');
+      navigate("/hospital");
     }
   }, [token, userType]);
 
@@ -27,21 +27,30 @@ const LoginHospital = () => {
   };
 
   return (
-    <div className='mt-28 w-full min-h-screen flex flex-col bg-white'>
-      <div className='w-full md:w-1/2 bg-white mt-10 p-12 self-center shadow-lg'>
-        <h2 className='text-center text-4xl text-red-600 font-display font-semibold'>
+    <div className="mt-28 w-full min-h-screen flex flex-col bg-white">
+      <div className="w-full md:w-1/2 bg-white mt-10 p-12 self-center shadow-lg">
+        {error ? (
+          <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            <strong class="font-bold">Alert!</strong>
+            <span class="block sm:inline"> {error} </span>
+          </div>
+        ) : null}
+        <h2 className="text-center text-4xl text-red-600 font-display font-semibold">
           Hospital Sign in
         </h2>
-        <div className='mt-12'>
+        <div className="mt-12">
           <form onSubmit={submitHandler}>
-            <div className='flex flex-col space-y-4'>
-              <div className='text-sm font-bold text-gray-700 tracking-wide'>
+            <div className="flex flex-col space-y-4">
+              <div className="text-sm font-bold text-gray-700 tracking-wide">
                 Email Address
               </div>
-              <div className='border-b border-gray-300'>
+              <div className="border-b border-gray-300">
                 <input
-                  className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300'
-                  type='email'
+                  className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
+                  type="email"
                   value={hospitalInput.email}
                   onChange={(e) => {
                     setHospitalInput({
@@ -49,50 +58,50 @@ const LoginHospital = () => {
                       email: e.target.value,
                     });
                   }}
-                  placeholder='example@gmail.com'
+                  placeholder="example@gmail.com"
                   required
                 />
               </div>
             </div>
-            <div className='mt-8 flex flex-col'>
-              <div className='flex justify-between items-center'>
-                <div className='text-sm font-bold text-gray-700 tracking-wide'>
+            <div className="mt-8 flex flex-col">
+              <div className="flex justify-between items-center">
+                <div className="text-sm font-bold text-gray-700 tracking-wide">
                   Password
                 </div>
               </div>
-              <div className='flex items-center border-b border-gray-300'>
+              <div className="flex items-center border-b border-gray-300">
                 <input
                   value={hospitalInput.password}
-                  className='ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300'
-                  type={'password'}
+                  className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-rose-300"
+                  type={"password"}
                   onChange={(e) => {
                     setHospitalInput({
                       ...hospitalInput,
                       password: e.target.value,
                     });
                   }}
-                  placeholder='Enter your password'
+                  placeholder="Enter your password"
                   required
                 />
               </div>
             </div>
-            <div className='mt-10 flex flex-col gap-4 items-center'>
+            <div className="mt-10 flex flex-col gap-4 items-center">
               <button
-                className='bg-red-400 text-white p-3 sm:p-2 w-80 rounded-lg tracking-wide
+                className="bg-red-400 text-white p-3 sm:p-2 w-80 rounded-lg tracking-wide
                                 font-bold font-display focus:outline-none focus:shadow-outline active:bg-rose-500
-                                shadow-lg'
-                type='submit'
+                                shadow-lg"
+                type="submit"
               >
                 Log In
               </button>
             </div>
           </form>
-          <div className='mt-12 text-sm font-display font-semibold text-gray-700 text-center'>
-            Don't have an account?{' '}
+          <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+            Don't have an account?{" "}
             <Link
-              to={'/signup/hospital'}
+              to={"/signup/hospital"}
               replace={true}
-              className='cursor-pointer text-red-400 hover:text-red-600'
+              className="cursor-pointer text-red-400 hover:text-red-600"
             >
               Sign up
             </Link>

@@ -2,22 +2,20 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-} from 'firebase/auth';
+} from "firebase/auth";
 
-import { createContext, useState, useEffect } from 'react';
-import { useContext } from 'react';
-import { auth, db } from '../firebase';
-import { userTypes } from '../constants/constants';
-import { useLoader } from './loader-context';
+import { createContext, useState, useEffect } from "react";
+import { useContext } from "react";
+import { auth, db } from "../firebase";
+import { userTypes } from "../constants/constants";
+import { useLoader } from "./loader-context";
 import {
   addDoc,
   collection,
-  doc,
   onSnapshot,
   query,
-  updateDoc,
   where,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 
 const authContext = createContext();
 
@@ -27,13 +25,14 @@ export const AuthProvider = ({ children }) => {
   const [userUID, setUserUID] = useState(null);
   const [user, setUser] = useState(null);
   const [userType, setUserType] = useState(null);
+  const [error, setError] = useState(null);
   const { setShowLoader } = useLoader();
 
   useEffect(() => {
     console.log(userId);
     if (token && userId && userType) {
       (async () => {
-        const q = query(collection(db, userType), where('uid', '==', userId));
+        const q = query(collection(db, userType), where("uid", "==", userId));
         onSnapshot(q, (data) => {
           setUserUID(data.docs[0]?.id);
           setUser(data.docs[0].data());
@@ -42,7 +41,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token, userId, userType]);
 
-  const donorSignupHandler = async (name, email, password, bloodgroup) => {
+  const donorSignupHandler = async (
+    name,
+    email,
+    password,
+    bloodgroup,
+    location
+  ) => {
     if (token) logoutHandler();
 
     setShowLoader(true);
@@ -57,9 +62,11 @@ export const AuthProvider = ({ children }) => {
         uid: user.uid,
         name,
         bloodgroup,
+        location,
         email,
       });
     } catch (err) {
+      setError(err?.message);
       console.log(err);
     } finally {
       setShowLoader(false);
@@ -74,27 +81,28 @@ export const AuthProvider = ({ children }) => {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
       setUserId(user?.uid);
-      setUserType(userTypes.BLOOD_BANK);
+      setUserType(userTypes.BLOODBANK);
       setToken(user?.accessToken);
 
-      await addDoc(collection(db, userTypes.BLOOD_BANK), {
+      await addDoc(collection(db, userTypes.BLOODBANK), {
         uid: user.uid,
         name,
         location,
         donorRequest: [],
         bloodData: {
-          'A+': 50,
-          'B+': 50,
-          'B-': 50,
-          'A-': 50,
-          'AB+': 50,
-          'AB-': 50,
-          'O+': 50,
-          'O-': 50,
+          "A+": 50,
+          "B+": 50,
+          "B-": 50,
+          "A-": 50,
+          "AB+": 50,
+          "AB-": 50,
+          "O+": 50,
+          "O-": 50,
         },
         email,
       });
     } catch (err) {
+      setError(err?.message);
       console.log(err);
     } finally {
       setShowLoader(false);
@@ -120,6 +128,7 @@ export const AuthProvider = ({ children }) => {
         hospitalRequests: [],
       });
     } catch (err) {
+      setError(err?.message);
       console.log(err);
     } finally {
       setShowLoader(false);
@@ -136,6 +145,7 @@ export const AuthProvider = ({ children }) => {
       setUserId(user?.uid);
       setUserType(userType);
     } catch (err) {
+      setError(err?.message);
       console.log(err);
     } finally {
       setShowLoader(false);
@@ -143,10 +153,24 @@ export const AuthProvider = ({ children }) => {
   };
   const logoutHandler = () => {
     signOut(auth);
-    setToken('');
+    setToken("");
     setUser(null);
     setUserType(null);
-    setUserId('');
+    setUserId("");
+  };
+
+  const contactHandler = async (name, email, message) => {
+    try {
+      await addDoc(collection(db, userTypes.CONTACT), {
+        name,
+        message,
+        email,
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setShowLoader(false);
+    }
   };
 
   return (
@@ -157,12 +181,14 @@ export const AuthProvider = ({ children }) => {
         hospitalSignupHandler,
         bloodBankSignupHandler,
         logoutHandler,
+        contactHandler,
         user,
         setUser,
         userId,
         userType,
         token,
         userUID,
+        error,
       }}
     >
       {children}

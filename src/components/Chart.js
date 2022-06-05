@@ -1,27 +1,3 @@
-// import React from 'react';
-
-// import {
-//   Chart as ChartJS,
-//   CategoryScale,
-//   LinearScale,
-//   BarElement,
-//   Title,
-//   Tooltip,
-//   Legend,
-// } from 'chart.js';
-// import { Bar } from 'react-chartjs-2';
-
-// const ShowChart = ({ bloodData }) => {
-//   console.log(bloodData);
-//   return (
-//     <div className='flex w-80 shadow-lg'>
-//       {bloodData.labels.length > 0 ? <Bar data={bloodData} /> : null}
-//     </div>
-//   );
-// };
-
-// export default ShowChart;
-
 import React from "react";
 import {
   Chart as ChartJS,
