@@ -98,7 +98,7 @@ const BloodBank = () => {
         <div className="flex flex-col p-5 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg md:w-2/3">
           <div className="">
             <h1 className="font-bold text-xl tracking-wide">
-              Hospital Request
+              Blood Donation Request
             </h1>
           </div>
           <table className="p-2 m-4 w-3/4 justify-center items-center">
