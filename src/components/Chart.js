@@ -22,7 +22,7 @@
 
 // export default ShowChart;
 
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,8 +31,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -42,22 +42,22 @@ ChartJS.register(
   Legend
 );
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: "Dataset 1",
       data: [2, 3, 4, 5, 6, 2],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
   ],
 };
 
 const ShowChart = ({ bloodData }) => {
   return (
-    <div className='w-80'>
+    <div className="w-full">
       {bloodData?.labels?.length > 0 ? (
         <Bar data={bloodData} />
       ) : (
