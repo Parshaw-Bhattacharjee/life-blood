@@ -1,37 +1,36 @@
-import React from 'react';
-import { useAuth } from '../../../contexts/auth-context';
+import React from "react";
+import { useAuth } from "../../../contexts/auth-context";
 
 const HospitalRequestSection = () => {
   const { user } = useAuth();
 
   return (
-    <div className='flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg md:w-1/2'>
-      <div className=''>
-        <h1 className='font-bold text-xl tracking-wide'>Pending Request</h1>
+    <div className="flex flex-col space-y-1 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg w-full">
+      <div className="">
+        <h1 className="font-bold text-xl tracking-wide">Pending Request</h1>
       </div>
-      <div className='w-full flex flex-row p-2 justify-center items-center mx-2'>
-        <div className='justify-between border-2 px-2 w-full'>
-          <div className='space-x-4 flex flex-row'>
-            <h1>Doctor Incharge</h1>
-            <h1>Type</h1>
-            <h1>Qt.</h1>
-          </div>
-          {user?.hospitalRequests
-            ?.filter((el) => el.pending)
-            .map((el) => {
-              return (
-                <div
-                  key={el.id}
-                  className='space-x-4 flex flex-row justify-around'
-                >
-                  <h1>{el.doctorName}</h1>
-                  <h1>{el.bloodGroup}</h1>
-                  <h1>{el.quantity}</h1>
-                </div>
-              );
-            })}
-        </div>
-      </div>
+      <table className="p-2 m-4 w-3/4 justify-center items-center">
+        <thead className="">
+          <tr className="justify-between">
+            <th className="text-left">Doctor Incharge</th>
+            <th className="text-left">Type</th>
+            <th className="text-left">Quantity</th>
+          </tr>
+        </thead>
+        {user?.hospitalRequests
+          ?.filter((el) => el.pending)
+          .map((el) => {
+            return (
+              <tbody key={el.id} className="w-full p-2 flex-col">
+                <tr className="border-2">
+                  <td className="items-center">{el.doctorName}</td>
+                  <td className="items-center">{el.bloodGroup}</td>
+                  <td className="items-center">{el.quantity}</td>
+                </tr>
+              </tbody>
+            );
+          })}
+      </table>
     </div>
   );
 };

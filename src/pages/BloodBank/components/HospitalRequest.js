@@ -3,13 +3,13 @@ export const HospitalRequest = ({ request, onAcceptHandler }) => {
 
   return (
     <tr className="border-2">
-      <td>
+      <td className="items-center">
         <a href={request.downloadUrl}>{request.hospitalName}</a>
       </td>
-      <td>{request.bloodGroup}</td>
-      <td>{request.quantity}</td>
+      <td className="items-center">{request.bloodGroup}</td>
+      <td className="items-center">{request.quantity}</td>
 
-      <td className="">
+      <td className="items-center">
         <button
           onClick={() => {
             onAcceptHandler(request);

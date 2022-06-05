@@ -49,7 +49,7 @@ const SignupDonor = () => {
   };
 
   return (
-    <div className="mt-28 w-full min-h-screen flex  flex-col bg-white">
+    <div className="mt-28 w-full min-h-screen flex flex-col bg-white p-5">
       <div className="w-full md:w-1/2 bg-white mt-10 px-12 self-center">
         {error ? (
           <div

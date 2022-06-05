@@ -45,7 +45,7 @@ const BankRequestSection = ({
       <div className="">
         <h1 className="font-bold text-xl tracking-wide">Hospital Request</h1>
       </div>
-      <table className="p-2 m-4 w-3/4">
+      <table className="p-2 m-4 w-3/4 justify-center items-center">
         <thead className="">
           <tr className="">
             <th className="text-left">Hospital name</th>

@@ -95,17 +95,35 @@ const BloodBank = () => {
           />
           <ShowChart bloodData={bloodData} />
         </div>
-        {user?.donorRequest
-          ?.filter((el) => el.pending && el.username)
-          ?.map((el) => {
-            return (
-              <DonorRequest
-                request={el}
-                onAcceptHandler={onAcceptHandler}
-                isBloodDataChanged={isBloodDataDecrease}
-              />
-            );
-          })}
+        <div className="flex flex-col p-5 justify-center items-center border-2 border-red-300 shadow-lg rounded-lg md:w-2/3">
+          <div className="">
+            <h1 className="font-bold text-xl tracking-wide">
+              Hospital Request
+            </h1>
+          </div>
+          <table className="p-2 m-4 w-3/4 justify-center items-center">
+            <thead className="">
+              <tr className="">
+                <th className="text-left">Donor Name</th>
+                <th className="text-left">Blood group</th>
+                <th className="text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody className="w-full p-2 flex-col">
+              {user?.donorRequest
+                ?.filter((el) => el.pending && el.username)
+                ?.map((el) => {
+                  return (
+                    <DonorRequest
+                      request={el}
+                      onAcceptHandler={onAcceptHandler}
+                      isBloodDataChanged={isBloodDataDecrease}
+                    />
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
         <RequestDonationModal />
       </div>
     </div>

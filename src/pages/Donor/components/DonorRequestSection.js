@@ -52,8 +52,9 @@ const DonorRequestSection = ({
       </div>
       <table className="p-2 my-4">
         <thead className="border-2 flex flex-row space-x-2 p-2">
-          <th>Blood Bank Name</th>
-          <th>Blood Bank Location</th>
+          <th className="text-center">Blood Bank Name</th>
+          <th className="text-center">Blood Bank Location</th>
+          <th className="text-center">Status</th>
         </thead>
         <tbody className="w-full p-2 flex-col">
           {console.log(bloodBank)}
