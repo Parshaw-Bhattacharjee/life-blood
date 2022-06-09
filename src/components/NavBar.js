@@ -31,7 +31,7 @@ const NavBar = () => {
               <li title="blood bank">
                 <Link to={"/login/bloodbank"}>
                   <RiBankFill />
-                  <span className="text-xs">Blood Bank</span>
+                  <span className="text-xs">Bank</span>
                 </Link>
               </li>
               <li title="donor">
