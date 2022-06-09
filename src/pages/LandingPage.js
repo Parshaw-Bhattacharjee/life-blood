@@ -37,7 +37,27 @@ const LandingPage = () => {
               data: Object.keys(dataObj.bloodData)
                 .sort((a, b) => a - b)
                 .map((el) => dataObj.bloodData[el]),
-              backgroundColor: "rgba(255, 99, 132, 0.5)",
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+                "rgba(230, 2, 2, 0.2)",
+                "rgba(255, 2, 255, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+                "rgba(230, 2, 2, 1)",
+                "rgba(255, 2, 255, 1)",
+              ],
+              borderWidth: 1,
             },
           ],
         });
@@ -49,7 +69,7 @@ const LandingPage = () => {
     <div className="flex flex-col w-full h-screen justify-center items-center">
       <CarouselSection />
 
-      <div className="w-full md:w-1/2 md:mb-20">
+      <div className="flex w-full md:w-1/2 justify-center items-center">
         <Chart bloodData={bloodData} />
       </div>
     </div>

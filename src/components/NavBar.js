@@ -25,16 +25,19 @@ const NavBar = () => {
               <li title="hospital">
                 <Link to={"/login/hospital"}>
                   <FaHospitalAlt />
+                  <span className="text-xs">Hospital</span>
                 </Link>
               </li>
               <li title="blood bank">
                 <Link to={"/login/bloodbank"}>
                   <RiBankFill />
+                  <span className="text-xs">Blood Bank</span>
                 </Link>
               </li>
               <li title="donor">
                 <Link to={"/login/donor"}>
                   <AiOutlineUser />
+                  <span className="text-xs">Donor</span>
                 </Link>
               </li>
             </>

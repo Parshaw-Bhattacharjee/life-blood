@@ -5,7 +5,7 @@ import { AiFillInstagram } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white md:flex md:items-center md:justify-between px-10 py-3">
+    <footer className="bg-gray-900 text-white md:flex md:items-center md:justify-between px-10 py-3 md:mt-20">
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4">
         <ul>
           <h1 className="mb-1 font-semibold">SUPPORT</h1>
